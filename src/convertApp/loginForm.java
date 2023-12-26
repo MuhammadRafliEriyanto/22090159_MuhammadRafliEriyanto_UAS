@@ -4,6 +4,15 @@
  */
 package convertApp;
 
+import connection.koneksiDB;
+import convertUser.HomeUser;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author USER
@@ -13,9 +22,17 @@ public class loginForm extends javax.swing.JFrame {
     /**
      * Creates new form loginForm
      */
+    
+    int xx, xy;
+    
+    public Statement st;
+    public ResultSet rs;
+    Connection con = connection.koneksiDB.BukaKoneksi();
+    
     public loginForm() {
         initComponents();
     }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,12 +48,12 @@ public class loginForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        Username = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        BtnLogin = new javax.swing.JButton();
+        Password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,12 +61,33 @@ public class loginForm extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/foto/Free Vector _ Turn people transport flat illustration.jpeg"))); // NOI18N
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 420));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPanel2FocusGained(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -58,45 +96,142 @@ public class loginForm extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel2.setText("Username");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
-
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setCaretColor(new java.awt.Color(204, 255, 255));
-        jTextField1.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 280, 30));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel3.setText("Password");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setCaretColor(new java.awt.Color(204, 255, 255));
-        jTextField3.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 280, 30));
+        Username.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        Username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(176, 196, 222)));
+        Username.setCaretColor(new java.awt.Color(204, 255, 255));
+        Username.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        Username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                UsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                UsernameFocusLost(evt);
+            }
+        });
+        jPanel2.add(Username, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 280, 30));
 
         jLabel5.setText("Don't have account?");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Create account?");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, -1, -1));
-
-        jButton1.setText("LOGIN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 290, 30));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, -1));
+
+        BtnLogin.setText("LOGIN");
+        BtnLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(176, 196, 222)));
+        BtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnLoginMouseClicked(evt);
+            }
+        });
+        BtnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLoginActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 280, 30));
+        jPanel2.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 280, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 0, 410, 420));
+        jPanel2.getAccessibleContext().setAccessibleName("");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
+         try{
+            String sql = "SELECT * FROM login where username='" + Username.getText() + "'AND password='" + Password.getText() +"'";
+            Connection c = koneksiDB.BukaKoneksi();
+            Statement st = c.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                if(Username.getText().equals(rs.getString("username"))
+                        && Password.getText().equals(rs.getString("password"))){
+                    JOptionPane.showMessageDialog(null, "Login Berhasil");
+                    this.setVisible(false);
+                    HomeUser P = new HomeUser();
+                    P.setVisible(true);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Username & Password Salah!","Message",JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }   
+    }//GEN-LAST:event_BtnLoginActionPerformed
+
+    private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jPanel2FocusGained
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // TODO add your handling code here:
+       xx = evt.getX();
+       xy = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        // TODO add your handling code here:
+        
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+        dispose();
+        System.exit(0);
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void UsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UsernameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameFocusGained
+
+    private void UsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UsernameFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameFocusLost
+
+    private void BtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLoginMouseClicked
+        // TODO add your handling code here:
+         try{
+            String sql = "SELECT * FROM login where username='" + Username.getText() + "'AND password='" + Password.getText() +"'";
+            Connection c = koneksiDB.BukaKoneksi();
+            Statement st = c.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                if(Username.getText().equals(rs.getString("username"))
+                        && Password.getText().equals(rs.getString("password"))){
+                    JOptionPane.showMessageDialog(null, "Login Berhasil");
+                    this.setVisible(false);
+                    HomeUser P = new HomeUser();
+                    P.setVisible(true);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Username & Password Salah!","Message",JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_BtnLoginMouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new signIn().setVisible(true);
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -134,7 +269,9 @@ public class loginForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton BtnLogin;
+    private javax.swing.JPasswordField Password;
+    private javax.swing.JTextField Username;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -143,7 +280,5 @@ public class loginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

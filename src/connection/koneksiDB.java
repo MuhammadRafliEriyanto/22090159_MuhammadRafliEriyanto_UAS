@@ -17,11 +17,11 @@ public class koneksiDB {
     public static Connection BukaKoneksi() {
             try {
                 MysqlDataSource m = new MysqlDataSource();
-                m.setDatabaseName("aplikasi_tiketkonser_qr");
+                m.setDatabaseName("pemesananbis");
                 m.setUser("root");
                 m.setPassword("");
                 m.setServerName("localhost");
-                m.setPortNumber(8111);
+                m.setPortNumber(3306);
                 m.setServerTimezone("Asia/Jakarta");
                 Connection c = m.getConnection();
                 return c;
@@ -31,4 +31,4 @@ public class koneksiDB {
             return null;
         }
     
-}
+    }
