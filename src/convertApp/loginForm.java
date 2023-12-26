@@ -5,7 +5,7 @@
 package convertApp;
 
 import connection.koneksiDB;
-import convertUser.HomeUser;
+import convert.HomeUser;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.ResultSet;

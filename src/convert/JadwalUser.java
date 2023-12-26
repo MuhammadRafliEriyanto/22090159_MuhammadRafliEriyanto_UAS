@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package convertUser;
+package convert;
 
 import connection.koneksiDB;
-import static convertUser.BeliTiket.ViewData;
-import static convertUser.BeliTiket.tblBeliTiket;
+import static convert.BeliTiket.ViewData;
+import static convert.BeliTiket.tblBeliTiket;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,8 +83,8 @@ public class JadwalUser extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCari)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +191,7 @@ public class JadwalUser extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 public static void ViewData(String where) {
-        Object[] kolom = {"ID Jadwa", "Nama Bus", "Tanggal", "Lokasi", "kuota"};
+        Object[] kolom = {"ID Jadwal", "Nama Bus", "Tanggal", "Lokasi", "kuota"};
         DefaultTableModel model = new DefaultTableModel(null, kolom);
         tblJadwalUser.setModel(model);
 
