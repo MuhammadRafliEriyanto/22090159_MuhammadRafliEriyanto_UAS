@@ -5,9 +5,14 @@
 package convertUser;
 
 
+import java.awt.Graphics2D;
 import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import javax.swing.ImageIcon;
@@ -19,6 +24,11 @@ import net.sourceforge.barbecue.output.OutputException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.JFileChooser;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 /**
  *
@@ -51,7 +61,7 @@ public class barcode extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cbJurusan = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
         lbBC = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -65,7 +75,7 @@ public class barcode extends javax.swing.JFrame {
             }
         });
 
-        btnGenerate.setText("Generete");
+        btnGenerate.setText("Print");
         btnGenerate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGenerateMouseClicked(evt);
@@ -85,7 +95,12 @@ public class barcode extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Jurusan");
 
-        jButton2.setText("Export");
+        btnExport.setText("Export");
+        btnExport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportMouseClicked(evt);
+            }
+        });
 
         lbBC.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -109,11 +124,13 @@ public class barcode extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(tID)
                             .addComponent(btnGenerate, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addGap(72, 72, 72)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
+                        .addGap(0, 20, Short.MAX_VALUE)))
                 .addGap(54, 54, 54))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -125,20 +142,20 @@ public class barcode extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(lbBC, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lbBC, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -262,6 +279,46 @@ public class barcode extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnGenerateMouseClicked
 
+    private void btnExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportMouseClicked
+        // TODO add your handling code here:
+        Icon icon = lbBC.getIcon();
+
+    // Pastikan ikon tidak null
+        if (icon != null && icon instanceof ImageIcon) {
+        // Dapatkan gambar dari ikon
+        Image barcodeImage = ((ImageIcon) icon).getImage();
+
+        // Dapatkan direktori tempat penyimpanan file
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save Barcode Image");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File selectedDirectory = fileChooser.getSelectedFile();
+            String filePath = selectedDirectory.getAbsolutePath() + File.separator + "barcode.png";
+
+            // Simpan gambar ke file PNG
+            try {
+                BufferedImage bufferedImage = new BufferedImage(barcodeImage.getWidth(null), barcodeImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = bufferedImage.createGraphics();
+                g2.drawImage(barcodeImage, 0, 0, null);
+                g2.dispose();
+
+                ImageIO.write(bufferedImage, "png", new File(filePath));
+                JOptionPane.showMessageDialog(this, "Barcode exported successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error exporting barcode.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        } else {
+        JOptionPane.showMessageDialog(this, "Print the barcode first before exporting.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnExportMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -299,9 +356,9 @@ public class barcode extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnGenerate;
     private javax.swing.JComboBox<String> cbJurusan;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

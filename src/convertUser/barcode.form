@@ -53,12 +53,15 @@
                               <Component id="tID" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnGenerate" alignment="0" pref="179" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="92" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cbJurusan" min="-2" pref="175" max="-2" attributes="0"/>
-                              <Component id="jButton2" alignment="0" min="-2" pref="175" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="btnExport" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="cbJurusan" min="-2" pref="175" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -75,12 +78,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="tID" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="cbJurusan" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
@@ -88,10 +91,10 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnGenerate" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnExport" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="lbBC" min="-2" pref="145" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lbBC" min="-2" pref="158" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -105,7 +108,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnGenerate">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Generete"/>
+            <Property name="text" type="java.lang.String" value="Print"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnGenerateMouseClicked"/>
@@ -143,10 +146,13 @@
             <Property name="text" type="java.lang.String" value="Jurusan"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnExport">
           <Properties>
             <Property name="text" type="java.lang.String" value="Export"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnExportMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbBC">
           <Properties>

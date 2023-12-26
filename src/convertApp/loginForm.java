@@ -65,7 +65,7 @@ public class loginForm extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/foto/Free Vector _ Turn people transport flat illustration.jpeg"))); // NOI18N
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 420));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 420));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -90,9 +90,9 @@ public class loginForm extends javax.swing.JFrame {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Welcome");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Selamat Datang");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel2.setText("Username");
@@ -102,7 +102,7 @@ public class loginForm extends javax.swing.JFrame {
         jLabel3.setText("Password");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
-        Username.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        Username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(176, 196, 222)));
         Username.setCaretColor(new java.awt.Color(204, 255, 255));
         Username.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -141,9 +141,11 @@ public class loginForm extends javax.swing.JFrame {
             }
         });
         jPanel2.add(BtnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 280, 30));
+
+        Password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel2.add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 280, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(572, 0, 410, 420));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 0, 430, 420));
         jPanel2.getAccessibleContext().setAccessibleName("");
 
         pack();
