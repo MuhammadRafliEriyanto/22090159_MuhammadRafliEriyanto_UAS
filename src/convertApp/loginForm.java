@@ -5,7 +5,7 @@
 package convertApp;
 
 import connection.koneksiDB;
-import convert.HomeUser;
+import convert.HomePage;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -163,7 +163,7 @@ public class loginForm extends javax.swing.JFrame {
                         && Password.getText().equals(rs.getString("password"))){
                     JOptionPane.showMessageDialog(null, "Login Berhasil");
                     this.setVisible(false);
-                    HomeUser P = new HomeUser();
+                    HomePage P = new HomePage();
                     P.setVisible(true);
                 }
             }else{
@@ -218,7 +218,7 @@ public class loginForm extends javax.swing.JFrame {
                         && Password.getText().equals(rs.getString("password"))){
                     JOptionPane.showMessageDialog(null, "Login Berhasil");
                     this.setVisible(false);
-                    HomeUser P = new HomeUser();
+                    HomePage P = new HomePage();
                     P.setVisible(true);
                 }
             }else{

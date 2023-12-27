@@ -17,12 +17,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author USER
  */
-public class JadwalUser extends javax.swing.JFrame {
+public class Jadwal extends javax.swing.JFrame {
 
     /**
      * Creates new form Jadwal
      */
-    public JadwalUser() {
+    public Jadwal() {
         initComponents();
         ViewData("");
     }
@@ -44,6 +44,7 @@ public class JadwalUser extends javax.swing.JFrame {
         btnCari = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblJadwalUser = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,49 +66,57 @@ public class JadwalUser extends javax.swing.JFrame {
 
         tblJadwalUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Id Jadwal", "Nama Bus", "Tanggal", "Lokasi", "Kouta"
+                "Id Jadwal", "id_Bus", "Nama Bus", "Tanggal", "Lokasi", "Kuota"
             }
         ));
         jScrollPane1.setViewportView(tblJadwalUser);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setText("Schedule");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(76, 76, 76))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                        .addGap(359, 359, 359)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCari, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(txtCari))
-                .addGap(41, 41, 41)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel2)
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addGap(63, 63, 63))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,7 +139,7 @@ public class JadwalUser extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        new HomeUser().setVisible(true);
+        new HomePage().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariMouseClicked
@@ -138,6 +147,7 @@ public class JadwalUser extends javax.swing.JFrame {
         String key = txtCari.getText();
         String where = " WHERE "
         + "id_jadwal LIKE '%" + key + "%' OR "
+        + "id_bus LIKE '%" + key + "%' OR "        
         + "nama_bus LIKE '%" + key + "%' OR "
         + "tanggal LIKE '%" + key + "%' OR "
         + "lokasi LIKE '%" + key + "%' OR "
@@ -162,21 +172,23 @@ public class JadwalUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JadwalUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jadwal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JadwalUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jadwal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JadwalUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jadwal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JadwalUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jadwal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JadwalUser().setVisible(true);
+                new Jadwal().setVisible(true);
             }
         });
     }
@@ -184,6 +196,7 @@ public class JadwalUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblJadwalUser;
@@ -191,7 +204,7 @@ public class JadwalUser extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 public static void ViewData(String where) {
-        Object[] kolom = {"ID Jadwal", "Nama Bus", "Tanggal", "Lokasi", "kuota"};
+        Object[] kolom = {"ID Jadwal","ID Bus", "Nama Bus", "Tanggal", "Lokasi", "kuota"};
         DefaultTableModel model = new DefaultTableModel(null, kolom);
         tblJadwalUser.setModel(model);
 
@@ -208,11 +221,12 @@ public static void ViewData(String where) {
             //dan tambahkan data ke dalam tabel
             while (rs.next()) {
                 String IdJadwal = rs.getString("id_jadwal");
+                String IdBus = rs.getString("id_bus");
                 String NamaBus = rs.getString("nama_bus");
                 String Tanggal = rs.getString("tanggal");
                 String Lokasi = rs.getString("lokasi");
                 String Kuota = rs.getString("kuota");
-                Object[] data = {IdJadwal, NamaBus, Tanggal,Lokasi, Kuota};
+                Object[] data = {IdJadwal, IdBus, NamaBus, Tanggal, Lokasi, Kuota};
                 model.addRow(data);
             }
         } catch (SQLException e) {

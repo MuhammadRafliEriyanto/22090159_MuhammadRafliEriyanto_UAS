@@ -5,7 +5,7 @@
 package convertApp;
 
 import connection.koneksiDB;
-import convert.HomeUser;
+import convert.HomePage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -198,7 +198,7 @@ public class signIn extends javax.swing.JFrame {
                         && mskPassword.getText().equals(rs.getString("masukkan_password"))){
                     JOptionPane.showMessageDialog(null, "Login Berhasil");
                     this.setVisible(false);
-                    HomeUser P = new HomeUser();
+                    HomePage P = new HomePage();
                     P.setVisible(true);
                 }
             }else{
